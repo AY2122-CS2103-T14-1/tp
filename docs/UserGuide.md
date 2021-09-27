@@ -73,19 +73,38 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
-### Adding a person: `add`
+### Add elderly details: `add`
 
-Adds a person to the address book.
+Adds an elderly and all relevant details into SeniorLove.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER l/LANGUAGE a/ADDRESS [lv/LAST_VISITED] [v/VISIT_DATE]`
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
-</div>
+* Adds a new elderly with the following information: `NAME`, `PHONE_NUMBER`, `LANGUAGE`, `ADDRESS`, `LAST_VISITED` and `VISIT` may be optionally included.
+* `NAME` is the elderly’s name. **This must be included.**
+* `PHONE_NUMBER` is the elderly’s phone number. **This must be included.**
+* `LANGUAGE` is the elderly’s preferred language for communication. **This must be included.**
+* `ADDRESS` is the elderly’s address to be visited. **This must be included.**
+* `LAST_VISITED` is the last date that the social worker has visited the elderly. **This is optional to include.**
+* `VISIT_DATE` is the next scheduled date for the elderly’s visit. **This is optional to include.**
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John /p12345678 l/English a/College Avenue East 18, New College` adds an elderly and details without the `LAST_VISITED` and `VISIT_DATE`.
+* `add n/Johnny /p87654321 l/Malay a/200 Toa Payoh Avenue 53  lv/2021-09-31` adds an elderly and details without the `VISIT_DATE`.
+* `add n/Janet /p54860332 l/Tamil a/200 Toa Payoh Avenue 26 v/2021-10-31` adds an elderly and details without the `LAST_VISITED`.
+* `add n/Jane /p54867392 l/Chinese a/200 Toa Payoh Avenue 56  lv/2021-09-31 v/2021-10-31` adds an elderly and details with `LAST_VISITED` and `VISIT_DATE`.
+
+### Delete an elderly or corresponding visit: `delete`
+
+Deletes either an elderly’s details or an elderly’s visit from SeniorLove.
+
+Format: `delete [v/] INDEX`
+
+* Deletes either the elderly’s details or the corresponding elderly’s visit at list index `INDEX`. `INDEX` is a **strictly positive integer, and must be included.**
+* `v/` denotes if the item to be deleted is an elderly’s details or the elderly’s corresponding visit. **This is optional to include.** The presence of v/ indicates that it is the elderly’s visit that is to be deleted, while its exclusion indicates that it is the elderly’s details that is to be deleted.
+
+Examples:
+* `delete 1` deletes the elderly’s details of the elderly at list index 1.
+* `delete v/ 1` deletes the elderly’s visit of the elderly at list index 1.
 
 ### Listing all persons : `list`
 
@@ -127,20 +146,6 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-
-### Deleting a person : `delete`
-
-Deletes the specified person from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
